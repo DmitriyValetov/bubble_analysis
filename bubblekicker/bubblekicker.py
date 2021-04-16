@@ -17,7 +17,7 @@ from skimage.measure import regionprops
 
 import cv2 as cv
 
-from utils import (calculate_convexity, 
+from .utils import (calculate_convexity, 
 		   calculate_circularity_reciprocal)
 
 CHANNEL_CODE = {'blue': 0, 'green': 1, 'red': 2}
@@ -238,17 +238,17 @@ class BubbleKicker(object):
 
     def clear_border_skimage(self, buffer_size=3, bgval=1):
         """clear the borders of the image using a belt of pixels definable in buffer_size and 
-	asign a pixel value of bgval
-	
-	Parameters
-        ----------
-        buffer_size: int
-	indicates the belt of pixels around the image border that should be considered to 
-	eliminate touching objects (default is 3)
-	
-	bgvalue: int
-	all touching objects are set to this value (default is 1)
-	"""
+        asign a pixel value of bgval
+        
+        Parameters
+            ----------
+            buffer_size: int
+        indicates the belt of pixels around the image border that should be considered to 
+        eliminate touching objects (default is 3)
+        
+        bgvalue: int
+        all touching objects are set to this value (default is 1)
+        """
 
         # perform algorithm
         image_inv = cv.bitwise_not(self.current_image)
@@ -371,7 +371,7 @@ def bubble_properties_plot(property_table,
         lambda y, pos: "{:d}%".format(int(round(y * 100))))
     fig, ax1 = plt.subplots()
     ax1.hist(property_table[which_property], bins,
-             normed=0, cumulative=False, histtype='bar',
+             density=False, cumulative=False, histtype='bar',
              color='gray', ec='white')
     ax1.get_xaxis().tick_bottom()
 
@@ -383,7 +383,7 @@ def bubble_properties_plot(property_table,
     # right axis - cumul distribution
     ax2 = ax1.twinx()
     ax2.hist(property_table[which_property],
-             bins, normed=1, cumulative=True,
+             bins, density=True, cumulative=True,
              histtype='step', color='k', linewidth= 3.)
     ax2.yaxis.set_major_formatter(formatter)
     ax2.set_ylabel(r'Cumulative percentage (%)', color='k',

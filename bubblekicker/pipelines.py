@@ -12,7 +12,7 @@ class CannyPipeline(BubbleKicker):
 		
         """Execute the different algorithms as a pipeline
         with given settings using the Canny method with fixed thresholds throughout the
-	whole image.
+	    whole image.
 		
         Parameters
         ----------
@@ -60,27 +60,27 @@ class AdaptiveThresholdPipeline(BubbleKicker):
 		Size of a pixel neighborhood that is used to calculate a threshold 
 		value for the pixel: 3, 5, 7, and so on
 		
-	cvalue: int
-		Constant subtracted from the mean or weighted mean 
-		(see the details below). Normally, it is positive but may be zero or 
-		negative as well
-	
-	dilate_footprint: int
-		footprint in pixels that is used to dilate the detected blob
-		
-	border_buffer_size: int
-		width of the border around the image used to clear 
-		possible partial objects
-        border_bgval: int
-		value to be given to the border touching objects
-	erode_footprint: int
-		the integer is used to build the kernel that is going to replacethe values 
-		at the edge of your object. The bigger it is the more pixels will be eroded 
-		from the edge of the bubble."""
+        cvalue: int
+            Constant subtracted from the mean or weighted mean 
+            (see the details below). Normally, it is positive but may be zero or 
+            negative as well
+        
+        dilate_footprint: int
+            footprint in pixels that is used to dilate the detected blob
+            
+        border_buffer_size: int
+            width of the border around the image used to clear 
+            possible partial objects
+            border_bgval: int
+            value to be given to the border touching objects
+        erode_footprint: int
+            the integer is used to build the kernel that is going to replacethe values 
+            at the edge of your object. The bigger it is the more pixels will be eroded 
+            from the edge of the bubble."""
 
         self.adaptive_threshold_opencv(blocksize, cvalue)
-	self.dilate_opencv(dilate_footprint)
-	self.fill_holes_opencv()
+        self.dilate_opencv(dilate_footprint)
+        self.fill_holes_opencv()
         self.clear_border_skimage(border_buffer_size, border_bgval)
         self.erode_opencv(erode_footprint)
 
